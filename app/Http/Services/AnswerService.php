@@ -44,8 +44,8 @@ class AnswerService
             ];
 
             $answer = $this->answerRepository->createAnswer($data);
+            return $answer;
 
-            return response()->json(["Success", $answer, 201]);
         } catch (Exception $e) {
             throw $e;
         }
