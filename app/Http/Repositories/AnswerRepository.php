@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Repositories;
-
 use App\Models\Answer;
 
 class AnswerRepository implements AnswerRepositoryInterface
 {
-
     public function getAllAnswers()
     {
         return Answer::all();

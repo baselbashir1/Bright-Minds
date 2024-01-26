@@ -11,7 +11,8 @@ class GameService
     private GameRepository $gameRepository;
     private CategoryRepository $categoryRepository;
 
-    public function __construct(GameRepository $gameRepository, CategoryRepository $categoryRepository) {
+    public function __construct(GameRepository $gameRepository, CategoryRepository $categoryRepository)
+    {
         $this->gameRepository = $gameRepository;
         $this->categoryRepository = $categoryRepository;
     }

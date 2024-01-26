@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Repositories;
+
 use App\Models\Game;
 
 class GameRepository implements GameRepositoryInterface
 {
-
     public function getAllGames()
     {
         return Game::all();
@@ -31,7 +31,8 @@ class GameRepository implements GameRepositoryInterface
         return Game::find($id)->delete();
     }
 
-    public function getGameByCategoryId($categoryId) {
+    public function getGameByCategoryId($categoryId)
+    {
         return Game::where(['category_id' => $categoryId])->get();
     }
 }

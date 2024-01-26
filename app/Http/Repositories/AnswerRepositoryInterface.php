@@ -2,8 +2,8 @@
 
 namespace App\Http\Repositories;
 
-interface AnswerRepositoryInterface {
-
+interface AnswerRepositoryInterface
+{
     public function getAllAnswers();
     public function getAnswerById($id);
     public function createAnswer(array $data);
@@ -11,5 +11,4 @@ interface AnswerRepositoryInterface {
     public function deleteAnswer($id);
     public function getAnswerByUserId($userId);
     public function getAnswerByUserIdAndQuestionId($userId, $questionId);
-
 }

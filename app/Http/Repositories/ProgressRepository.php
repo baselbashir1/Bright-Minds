@@ -5,7 +5,6 @@ use App\Models\Progress;
 
 class ProgressRepository implements ProgressRepositoryInterface
 {
-
     public function getAllProgress()
     {
         return Progress::all();

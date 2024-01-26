@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Repositories;
+
 use App\Models\User;
 
 class UserRepository implements UserRepositoryInterface
 {
-
     public function getAllUsers()
     {
         return User::all();

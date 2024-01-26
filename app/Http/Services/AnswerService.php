@@ -20,7 +20,6 @@ class AnswerService
         $this->userRepository = $userRepository;
     }
 
-
     public function getAnswerByUserId($userId)
     {
         $answer = $this->answerRepository->getAnswerByUserId($userId);
