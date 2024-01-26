@@ -33,6 +33,6 @@ class GameRepository implements GameRepositoryInterface
 
     public function getGameByCategoryId($categoryId)
     {
-        return Game::where(['category_id' => $categoryId])->get();
+        return Game::where('category_id', $categoryId)->get();
     }
 }

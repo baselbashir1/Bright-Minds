@@ -3,39 +3,32 @@
 namespace App\Http\Services;
 
 use App\Http\Repositories\AnswerRepository;
-use App\Http\Repositories\QuestionRepository;
-use App\Http\Repositories\UserRepository;
 use App\Http\Requests\AnswerRequest;
 use Exception;
 
 class AnswerService
 {
     private AnswerRepository $answerRepository;
-    private UserRepository $userRepository;
-    private QuestionRepository $questionRepository;
 
-    public function __construct(AnswerRepository $answerRepository, UserRepository $userRepository, QuestionRepository $questionRepository)
+    public function __construct(AnswerRepository $answerRepository)
     {
         $this->answerRepository = $answerRepository;
-        $this->userRepository = $userRepository;
     }
 
     public function getAnswerByUserId($userId)
     {
-        $answer = $this->answerRepository->getAnswerByUserId($userId);
-        return $answer;
+        return $this->answerRepository->getAnswerByUserId($userId) ?? null;
     }
 
     public function getAnswerByUserIdAndQuestionId($userId, $questionId)
     {
-        $answer = $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId);
-        return $answer;
+        return $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId) ?? null;
     }
 
-    public function addAnswer(AnswerRequest $request)
+    public function addAnswer(AnswerRequest $answerRequest)
     {
         try {
-            $requestData = $request->validated();
+            $requestData = $answerRequest->validated();
 
             $data = [
                 'user_id' => $requestData['user_id'],
@@ -43,11 +36,10 @@ class AnswerService
                 'answer' => $requestData['answer'],
             ];
 
-            $answer = $this->answerRepository->createAnswer($data);
-            return $answer;
+            return $this->answerRepository->createAnswer($data);
 
         } catch (Exception $e) {
-            throw $e;
+            throw new Exception("Failed to add answer: " . $e->getMessage(), 500, $e);
         }
     }
 }
