@@ -15,11 +15,19 @@ class GameController extends Controller
 
     public function getAllGames()
     {
-        return $this->gameService->getAllGames();
+        $games = $this->gameService->getAllGames();
+
+        return $games
+            ? response()->json($games, 200)
+            : response()->json(['message' => 'No games'], 404);
     }
 
     public function getGameByCategoryId($categoryId)
     {
-        return $this->gameService->getGameByCategoryId($categoryId);
+        $game = $this->gameService->getGameByCategoryId($categoryId);
+
+        return $game
+            ? response()->json($game, 200)
+            : response()->json(['message' => 'Game not found'], 404);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Services;
 
+use App\Http\DTOs\Requests\AnswerRequestDTO;
+use App\Http\DTOs\Responses\AnswerResponseDTO;
 use App\Http\Repositories\AnswerRepository;
-use App\Http\Requests\AnswerRequest;
 use Exception;
 
 class AnswerService
@@ -17,23 +18,23 @@ class AnswerService
 
     public function getAnswerByUserId($userId)
     {
-        return $this->answerRepository->getAnswerByUserId($userId) ?? null;
+        $answer = $this->answerRepository->getAnswerByUserId($userId);
+        return $answer ? new AnswerResponseDTO($answer) : null;
     }
 
     public function getAnswerByUserIdAndQuestionId($userId, $questionId)
     {
-        return $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId) ?? null;
+        $answer = $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId);
+        return $answer ? new AnswerResponseDTO($answer) : null;
     }
 
-    public function addAnswer(AnswerRequest $answerRequest)
+    public function addAnswer(AnswerRequestDTO $answerRequestDTO)
     {
         try {
-            $requestData = $answerRequest->validated();
-
             $data = [
-                'user_id' => $requestData['user_id'],
-                'question_id' => $requestData['question_id'],
-                'answer' => $requestData['answer'],
+                'user_id' => $answerRequestDTO->getUserId(),
+                'question_id' => $answerRequestDTO->getQuestionId(),
+                'answer' => $answerRequestDTO->getAnswer(),
             ];
 
             return $this->answerRepository->createAnswer($data);
