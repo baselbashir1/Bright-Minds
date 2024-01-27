@@ -16,7 +16,7 @@ class AnswerResponseDTO
         $this->id = $id;
         $this->userId = $userId;
         $this->questionId = $questionId;
-        $this->userId = $answer;
+        $this->answer = $answer;
     }
 
     public function setId($id)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +38,12 @@ Route::controller(AnswerController::class)->group(function () {
     Route::get('/getAnswerByUserId/{userId}', 'getAnswerByUserId');
     Route::get('/getAnswerByUserIdAndQuestionId/{userId}/{questionId}', 'getAnswerByUserIdAndQuestionId');
     Route::post('/addAnswer', 'addAnswer');
+});
+
+Route::controller(ProgressController::class)->group(function () {
+    Route::get('/getProgressById/{id}', 'getProgressById');
+    Route::get('/getProgressByUserId/{userId}', 'getProgressByUserId');
+    Route::get('/getProgressByGameId/{gameId}', 'getProgressByGameId');
+    Route::get('/getProgressByUserIdAndGameId/{userId}/{gameId}', 'getProgressByUserIdAndGameId');
+    Route::post('/addProgress', 'addProgress');
 });
