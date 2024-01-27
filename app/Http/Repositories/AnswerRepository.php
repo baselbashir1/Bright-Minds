@@ -1,18 +1,28 @@
 <?php
 
 namespace App\Http\Repositories;
+
 use App\Models\Answer;
+use App\Http\DTOs\Responses\AnswerResponseDTO;
+use App\Http\Resources\AnswerResource;
 
 class AnswerRepository implements AnswerRepositoryInterface
 {
     public function getAllAnswers()
     {
-        return Answer::all();
+        $answers = Answer::all();
+        $answerResponse = $answers->map(function ($answer) {
+            return new AnswerResponseDTO($answer->id, $answer->userId, $answer->questionId, $answer->answer);
+        });
+
+        return AnswerResource::collection($answerResponse);
     }
 
     public function getAnswerById($id)
     {
-        return Answer::find($id);
+        $answer = Answer::find($id);
+        $answerResponse = new AnswerResponseDTO($answer->id, $answer->userId, $answer->questionId, $answer->answer);
+        return new AnswerResource($answerResponse);
     }
 
     public function createAnswer(array $data)

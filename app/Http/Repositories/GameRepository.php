@@ -3,17 +3,29 @@
 namespace App\Http\Repositories;
 
 use App\Models\Game;
+use App\Http\Resources\GameResource;
+use App\Http\DTOs\Responses\GameResponseDTO;
 
 class GameRepository implements GameRepositoryInterface
 {
     public function getAllGames()
     {
-        return Game::all();
+        $games = Game::all();
+
+        $gameResponse = $games->map(function ($game) {
+            return new GameResponseDTO($game->id, $game->name, $game->categoryId);
+        });
+
+        return GameResource::collection($gameResponse);
     }
 
     public function getGameById($id)
     {
-        return Game::find($id);
+        $game = Game::find($id);
+
+        $gameResponse = new GameResponseDTO($game->id, $game->name, $game->categoryId);
+
+        return new GameResource($gameResponse);
     }
 
     public function createGame(array $data)
@@ -33,6 +45,12 @@ class GameRepository implements GameRepositoryInterface
 
     public function getGameByCategoryId($categoryId)
     {
-        return Game::where('category_id', $categoryId)->get();
+        $games = Game::where('category_id', $categoryId)->get();
+
+        $gameResponse = $games->map(function ($game) {
+            return new GameResponseDTO($game->id, $game->name, $game->categoryId);
+        });
+
+        return GameResource::collection($gameResponse);
     }
 }

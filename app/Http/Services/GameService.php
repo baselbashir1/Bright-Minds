@@ -16,19 +16,16 @@ class GameService
 
     public function getAllGames()
     {
-        $games = $this->gameRepository->getAllGames();
+        return $this->gameRepository->getAllGames();
+    }
 
-        $gameDTOs = [];
-        foreach ($games as $game) {
-            $gameDTOs[] = new GameResponseDTO($game);
-        }
-
-        return $gameDTOs;
+    public function getGameById($id)
+    {
+        return $this->gameRepository->getGameById($id);
     }
 
     public function getGameByCategoryId($categoryId)
     {
-        $game = $this->gameRepository->getGameByCategoryId($categoryId);
-        return $game ? new GameResponseDTO($game) : null;
+        return $this->gameRepository->getGameByCategoryId($categoryId);
     }
 }

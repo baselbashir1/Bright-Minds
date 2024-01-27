@@ -6,15 +6,27 @@ use App\Models\Answer;
 
 class AnswerResponseDTO
 {
+    private $id;
     private $userId;
     private $questionId;
     private $answer;
 
-    public function __construct(Answer $answer)
+    public function __construct($id, $userId, $questionId, $answer)
     {
-        $this->userId = $answer->user_id;
-        $this->questionId = $answer->question_id;
-        $this->userId = $answer->answer;
+        $this->id = $id;
+        $this->userId = $userId;
+        $this->questionId = $questionId;
+        $this->userId = $answer;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function setUserId($userId)
