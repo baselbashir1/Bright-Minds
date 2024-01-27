@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTOs\Requests\QuestionRequestDTO;
-use App\Http\DTOs\Responses\QuestionResponseDTO;
 use App\Http\Requests\QuestionRequest;
 use App\Http\Services\QuestionService;
 use Exception;
@@ -39,8 +38,8 @@ class QuestionController extends Controller
     {
         $questionRequestDTO = new QuestionRequestDTO($questionRequest);
         try {
-            $question = $this->questionService->addQuestion($questionRequestDTO);
-            return response()->json($question, 200);
+            $this->questionService->addQuestion($questionRequestDTO);
+            return response()->json(['success' => 'Question added successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

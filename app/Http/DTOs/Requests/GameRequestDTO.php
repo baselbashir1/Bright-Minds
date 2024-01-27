@@ -11,7 +11,7 @@ class GameRequestDTO
 
     public function __construct(GameRequest $gameRequest)
     {
-        $validatedData = $gameRequest;
+        $validatedData = $gameRequest->validated();
         $this->name = $validatedData['name'];
         $this->categoryId = $validatedData['categoryId'];
     }

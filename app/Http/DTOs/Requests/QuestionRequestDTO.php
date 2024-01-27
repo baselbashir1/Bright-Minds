@@ -10,7 +10,7 @@ class QuestionRequestDTO
 
     public function __construct(QuestionRequest $questionRequest)
     {
-        $validatedData = $questionRequest;
+        $validatedData = $questionRequest->validated();
         $this->question = $validatedData['question'];
     }
 

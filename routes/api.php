@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
@@ -20,11 +21,20 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::controller(GameController::class)->group(function () {
+    Route::get('/getAllGames', 'getAllGames');
+    Route::get('/getGameById/{id}', 'getGameById');
+    Route::get('/getGameByCategoryId/{categoryId}', 'getGameByCategoryId');
+});
 
-Route::get('/getAllGames', [GameController::class, 'getAllGames']);
-Route::get('/getGameById/{id}', [GameController::class, 'getGameById']);
-Route::get('/getGameByCategoryId/{categoryId}', [GameController::class, 'getGameByCategoryId']);
+Route::controller(QuestionController::class)->group(function () {
+    Route::get('/getAllQuestions', 'getAllQuestions');
+    Route::get('/getQuestionById/{questionId}', 'getQuestionById');
+    Route::post('/addQuestion', 'addQuestion');
+});
 
-
-Route::get('/getAllQuestions', [QuestionController::class, 'getAllQuestions']);
-Route::post('/addQuestion', [QuestionController::class, 'addQuestion']);
+Route::controller(AnswerController::class)->group(function () {
+    Route::get('/getAnswerByUserId/{userId}', 'getAnswerByUserId');
+    Route::get('/getAnswerByUserIdAndQuestionId/{userId}/{questionId}', 'getAnswerByUserIdAndQuestionId');
+    Route::post('/addAnswer', 'addAnswer');
+});

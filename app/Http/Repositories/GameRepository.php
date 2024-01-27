@@ -12,20 +12,22 @@ class GameRepository implements GameRepositoryInterface
     {
         $games = Game::all();
 
-        $gameResponse = $games->map(function ($game) {
-            return new GameResponseDTO($game->id, $game->name, $game->categoryId);
-        });
-
-        return GameResource::collection($gameResponse);
+        if ($games) {
+            $gameResponse = $games->map(function ($game) {
+                return new GameResponseDTO($game->id, $game->name, $game->category_id);
+            });
+            return GameResource::collection($gameResponse);
+        }
     }
 
     public function getGameById($id)
     {
         $game = Game::find($id);
 
-        $gameResponse = new GameResponseDTO($game->id, $game->name, $game->categoryId);
-
-        return new GameResource($gameResponse);
+        if ($game) {
+            $gameResponse = new GameResponseDTO($game->id, $game->name, $game->category_id);
+            return new GameResource($gameResponse);
+        }
     }
 
     public function createGame(array $data)
@@ -47,10 +49,11 @@ class GameRepository implements GameRepositoryInterface
     {
         $games = Game::where('category_id', $categoryId)->get();
 
-        $gameResponse = $games->map(function ($game) {
-            return new GameResponseDTO($game->id, $game->name, $game->categoryId);
-        });
-
-        return GameResource::collection($gameResponse);
+        if ($games) {
+            $gameResponse = $games->map(function ($game) {
+                return new GameResponseDTO($game->id, $game->name, $game->category_id);
+            });
+            return GameResource::collection($gameResponse);
+        }
     }
 }

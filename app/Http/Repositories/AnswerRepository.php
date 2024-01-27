@@ -11,18 +11,23 @@ class AnswerRepository implements AnswerRepositoryInterface
     public function getAllAnswers()
     {
         $answers = Answer::all();
-        $answerResponse = $answers->map(function ($answer) {
-            return new AnswerResponseDTO($answer->id, $answer->userId, $answer->questionId, $answer->answer);
-        });
 
-        return AnswerResource::collection($answerResponse);
+        if ($answers) {
+            $answerResponse = $answers->map(function ($answer) {
+                return new AnswerResponseDTO($answer->id, $answer->user_id, $answer->question_id, $answer->answer);
+            });
+            return AnswerResource::collection($answerResponse);
+        }
     }
 
     public function getAnswerById($id)
     {
         $answer = Answer::find($id);
-        $answerResponse = new AnswerResponseDTO($answer->id, $answer->userId, $answer->questionId, $answer->answer);
-        return new AnswerResource($answerResponse);
+
+        if ($answer) {
+            $answerResponse = new AnswerResponseDTO($answer->id, $answer->user_id, $answer->question_id, $answer->answer);
+            return new AnswerResource($answerResponse);
+        }
     }
 
     public function createAnswer(array $data)
@@ -42,11 +47,21 @@ class AnswerRepository implements AnswerRepositoryInterface
 
     public function getAnswerByUserId($userId)
     {
-        return Answer::where('user_id', $userId)->first();
+        $answer = Answer::where('user_id', $userId)->first();
+
+        if ($answer) {
+            $answerResponse = new AnswerResponseDTO($answer->id, $answer->user_id, $answer->question_id, $answer->answer);
+            return new AnswerResource($answerResponse);
+        }
     }
 
     public function getAnswerByUserIdAndQuestionId($userId, $questionId)
     {
-        return Answer::where(['user_id' => $userId, 'question_id' => $questionId])->first();
+        $answer = Answer::where(['user_id' => $userId, 'question_id' => $questionId])->first();
+
+        if ($answer) {
+            $answerResponse = new AnswerResponseDTO($answer->id, $answer->user_id, $answer->question_id, $answer->answer);
+            return new AnswerResource($answerResponse);
+        }
     }
 }

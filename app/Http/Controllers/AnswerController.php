@@ -7,7 +7,7 @@ use App\Http\Requests\AnswerRequest;
 use App\Http\Services\AnswerService;
 use Exception;
 
-class AnswersController extends Controller
+class AnswerController extends Controller
 {
     private AnswerService $answerService;
 
@@ -38,8 +38,8 @@ class AnswersController extends Controller
     {
         $answerRequestDTO = new AnswerRequestDTO($answerRequest);
         try {
-            $answer = $this->answerService->addAnswer($answerRequestDTO);
-            return response()->json($answer, 200);
+            $this->answerService->addAnswer($answerRequestDTO);
+            return response()->json(['success' => 'Answer added successfully.'], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

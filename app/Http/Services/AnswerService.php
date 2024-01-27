@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use App\Http\DTOs\Requests\AnswerRequestDTO;
-use App\Http\DTOs\Responses\AnswerResponseDTO;
 use App\Http\Repositories\AnswerRepository;
 use Exception;
 
@@ -18,14 +17,12 @@ class AnswerService
 
     public function getAnswerByUserId($userId)
     {
-        $answer = $this->answerRepository->getAnswerByUserId($userId);
-        return $answer ? new AnswerResponseDTO($answer) : null;
+        return $this->answerRepository->getAnswerByUserId($userId);
     }
 
     public function getAnswerByUserIdAndQuestionId($userId, $questionId)
     {
-        $answer = $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId);
-        return $answer ? new AnswerResponseDTO($answer) : null;
+        return $this->answerRepository->getAnswerByUserIdAndQuestionId($userId, $questionId);
     }
 
     public function addAnswer(AnswerRequestDTO $answerRequestDTO)

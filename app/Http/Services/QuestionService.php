@@ -3,9 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\DTOs\Requests\QuestionRequestDTO;
-use App\Http\DTOs\Responses\QuestionResponseDTO;
 use App\Http\Repositories\QuestionRepository;
-use App\Http\Requests\QuestionRequest;
 use Exception;
 
 class QuestionService
@@ -19,20 +17,12 @@ class QuestionService
 
     public function getAllQuestions()
     {
-        $questions = $this->questionRepository->getAllQuestions();
-
-        $questionDTOs = [];
-        foreach ($questions as $question) {
-            $questionDTOs[] = new QuestionResponseDTO($question);
-        }
-
-        return $questionDTOs;
+        return $this->questionRepository->getAllQuestions();
     }
 
     public function getQuestionById($questionId)
     {
-        $question = $this->questionRepository->getQuestionById($questionId);
-        return $question ? new QuestionResponseDTO($question) : null;
+        return $this->questionRepository->getQuestionById($questionId);
     }
 
     public function addQuestion(QuestionRequestDTO $questionRequestDTO)

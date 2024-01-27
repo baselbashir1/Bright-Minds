@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Http\DTOs\Responses\GameResponseDTO;
 use App\Http\Repositories\GameRepository;
 
 class GameService
